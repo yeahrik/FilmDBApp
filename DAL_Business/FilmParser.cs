@@ -37,7 +37,7 @@ namespace DAL_Business
         {
             int i = 0;
             List<string> textLines = new List<string>();
-            StreamReader sr = new StreamReader(@"C:\Users\stasy\Desktop\CSharpDotNet\Labo\DossierFinal\MyFilms\DAL_ConsoleApp\res\movies_v2.txt");
+            StreamReader sr = new StreamReader(@"C:\Users\stasy\Desktop\movies_v2.txt");
 
             while (i < nb)
             {
