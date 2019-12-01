@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DAL
@@ -32,6 +33,7 @@ namespace DAL
         #endregion
 
         #region properties
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CommentID { get => commentID; set => commentID = value; }
         public string Content { get => content; set => content = value; }
         public int Rate { get => rate; set => rate = value; }
