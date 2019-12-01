@@ -5,34 +5,30 @@ using System.Data.Entity;
 using DAL;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace DAL_ConsoleApp
+namespace DAL_2
 {
-    class FilmDbContext : DbContext
+    public class FilmDbContext : DbContext
     {
         public FilmDbContext() : base("FilmDB")
         {
             Database.SetInitializer<FilmDbContext>(new DropCreateDatabaseIfModelChanges<FilmDbContext>());
 
 
-
-            //Database.SetInitializer<SchoolDBContext>(new CreateDatabaseIfNotExists<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new DropCreateDatabaseAlways<SchoolDBContext>());
-            //Database.SetInitializer<SchoolDBContext>(new SchoolDBInitializer());
         }
 
-        public DbSet<Film> Films { get; set; }
-        public DbSet<Actor> Actors { get; set; }
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<CharacterActor> CharacterActor { get; set; }
-        public DbSet<FilmType> FilmType { get; set; }
+        public  DbSet<Film> Films { get; set; }
+        public  DbSet<Actor> Actors { get; set; }
+        public  DbSet<Character> Characters { get; set; }
+        public  DbSet<Comment> Comments { get; set; }
+        public  DbSet<CharacterActor> CharacterActor { get; set; }
+        public  DbSet<FilmType> FilmTypes { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             //modelBuilder.Entity<Film>()
             //    .HasMany<Actor>(s => s.Actors)

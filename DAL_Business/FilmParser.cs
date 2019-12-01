@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using DAL;
 
-namespace DAL_2
+
+namespace DAL_Business
 {
-    public class FilmParser // TODO
+    public class FilmParser
     {
         #region var prop
         private FilmDbContext dbContxt;
@@ -76,50 +79,60 @@ namespace DAL_2
             Film film = new Film();
 
             string[] filmTokens;
-            Char[] delimiterChars = {'‣'};
+            Char[] delimiterChars = { '‣' };
             filmTokens = str.Split(delimiterChars);
             delimiterChars[0] = '\u2016';
-  
+
             film.FilmID = Int32.Parse(filmTokens[0]);
 
-            try {
+            try
+            {
                 film.Title = filmTokens[1];
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("(Title) Erreur : " + e);
                 film.Title = null;
             }
 
-            try {
+            try
+            {
                 film.Runtime = Int32.Parse(filmTokens[7]);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("(Runtime) Erreur : " + e);
                 film.Runtime = -1;
             }
 
-            try {
+            try
+            {
                 film.Posterpath = filmTokens[9];
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("(Posterpath) Erreur : " + e);
                 film.Posterpath = null;
             }
 
             string genres;
-            try {
+            try
+            {
                 genres = filmTokens[12];
                 film.Filmtypes = getFilmTypes(genres);
                 foreach (FilmType ft in film.Filmtypes)
                 {
                     ft.Films.Add(film);
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("(genres) Erreur : " + e);
             }
 
             string acteurs;
-            try {
+            try
+            {
                 acteurs = filmTokens[14];
                 film.Actors = getActors(acteurs);
                 foreach (Actor a in film.Actors)
@@ -127,7 +140,8 @@ namespace DAL_2
                     a.Films.Add(film);
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("(acteurs) Erreur : " + e);
             }
 
@@ -203,22 +217,22 @@ namespace DAL_2
                 {
                     gen = new FilmType();
                     caracActor = s.Split('․');
-                    gen.Id = Int32.Parse(caracActor[0]);
+                    gen.FilmTypeID = Int32.Parse(caracActor[0]);
                     gen.Name = caracActor[1];
 
-                    tempGenre = dbContxt.FilmTypes.Find(gen.Id);
+                    tempGenre = dbContxt.FilmTypes.Find(gen.FilmTypeID);
                     if (tempGenre != null)
                         gen = tempGenre;
                     else
                     {
                         foreach (FilmType g in Genres)
                         {
-                            if (g.Id == gen.Id) throw new Exception("Id(" + gen.Id + ") déjà inséré !");
+                            if (g.FilmTypeID == gen.FilmTypeID) throw new Exception("Id(" + gen.FilmTypeID + ") déjà inséré !");
                         }
 
                         foreach (FilmType g in ListGenres)
                         {
-                            if (g.Id == gen.Id)
+                            if (g.FilmTypeID == gen.FilmTypeID)
                             {
                                 gen = g;
                                 break;
@@ -236,61 +250,6 @@ namespace DAL_2
             }
             return Genres;
         }
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public static Film DecodeFilmText(string filmtext) // Méthode de la classe FilmParser
-    //{
-    //    Film f = new Film();
-    //    Char[] delimiterChars = { '\u2023' };
-    //    string[] filmdetailwords = filmtext.Split(delimiterChars);
-    //    delimiterChars[0] = '\u2016';
-    //    // Initialisation des champs de base du film
-    //    f.FilmID = Int32.Parse(filmdetailwords[0]);
-    //    f.Title = filmdetailwords[1];
-    //    f.Runtime = Int32.Parse(filmdetailwords[7]);
-    //    f.Posterpath = filmdetailwords[9];
-    //    // Initialisation des champs détails du film
-    //    if (filmdetailwords.Length == 15)
-    //    {
-    //        string[] genres = filmdetailwords[12].Split(delimiterChars);
-    //        foreach (string s in genres)
-    //        {
-    //            if (s.Length > 0)
-    //            {
-    //                FilmType ft = new FilmType(s);
-
-    //                f.Filmtypes.Add(ft);
-    //            }
-    //        }
-    //        string[] acteurs = filmdetailwords[14].Split(delimiterChars);
-    //        foreach (string s in acteurs)
-    //            if (s.Length > 0)
-    //                f.Actors.Add(new Actor(s));
-    //    }
-    //    return f;
-    //}
-
-
-}
-
-
+    }
 }
