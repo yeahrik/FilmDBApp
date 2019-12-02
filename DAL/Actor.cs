@@ -16,6 +16,7 @@ namespace DAL
 
         // foreign keys
         private ICollection<Film> films;
+        private ICollection<CharacterActor> characterActors;
         #endregion
 
         #region constructors
@@ -23,6 +24,9 @@ namespace DAL
         {
             // many to many with Films
             this.Films = new HashSet<Film>();
+            // one to many with CharAct
+            this.CharacterActors = new HashSet<CharacterActor>();
+
         }
         public Actor(int actorID, string name, string surname)
         {
@@ -32,6 +36,9 @@ namespace DAL
 
             // many to many with Films
             this.Films = new HashSet<Film>();
+            // one to many with CharAct
+            this.CharacterActors = new HashSet<CharacterActor>();
+
         }
         public Actor(string text) // Constructeur d’objet Actor
         {
@@ -55,6 +62,7 @@ namespace DAL
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
         public virtual ICollection<Film> Films { get { return films = films ?? new HashSet<Film>(); } set => films = value; }
+        public virtual ICollection<CharacterActor> CharacterActors { get { return characterActors = characterActors ?? new HashSet<CharacterActor>(); } set => characterActors = value; }
 
         #endregion
 

@@ -14,9 +14,11 @@ namespace DAL_Business
     {
         public FilmDbContext() : base("FilmDB")
         {
-            // Database.SetInitializer<FilmDbContext>(new DropCreateDatabaseAlways<FilmDbContext>());
+            // Recréer model DB si changements :
             Database.SetInitializer<FilmDbContext>(new DropCreateDatabaseIfModelChanges<FilmDbContext>());
 
+            // Recréer model à chaque exécution :
+            // Database.SetInitializer<FilmDbContext>(new DropCreateDatabaseAlways<FilmDbContext>());
         }
 
         public DbSet<Film> Films { get; set; }
@@ -24,7 +26,7 @@ namespace DAL_Business
         public DbSet<Character> Characters { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<FilmType> FilmTypes { get; set; }
-        //public DbSet<CharacterActor> CharacterActors { get; set; }
+        public DbSet<CharacterActor> CharacterActors { get; set; }
 
 
 

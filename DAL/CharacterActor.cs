@@ -10,9 +10,11 @@ namespace DAL
     {
 
         #region variables
-        private int characterID;
-        private int actorID;
-        private int filmID;
+        //private int characterID;
+        //private int actorID;
+        //private int filmID;
+        private int id;
+
 
         private Character character;
         private Actor actor;
@@ -23,25 +25,22 @@ namespace DAL
         public CharacterActor()
         {
         }
-        //public CharacterActor(Character character, Actor actor, int characterActorID)
-        //{
-        //    Character = character;
-        //    Actor = actor;
-        //}
         #endregion
 
         #region properties        
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Key, Column(Order = 1)]
-        public int ActorID { get => actorID; set => actorID = value; }
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Key, Column(Order = 0)]
-        public int FilmID { get => filmID; set => filmID = value; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key, Column("CharacterActorID", Order = 0), ForeignKey("Actors")]
+        //public int ActorID { get => actorID; set => actorID = value; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Key, Column(Order = 2)]
-        public int CharacterID { get => characterID; set => characterID = value; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key, Column("CharacterActorID", Order = 1), ForeignKey("Films")]
+        //public int FilmID { get => filmID; set => filmID = value; }
 
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key, Column("CharacterActorID", Order = 2), ForeignKey("Characters")]
+        //public int CharacterID { get => characterID; set => characterID = value; }
+
+        public int Id { get => id; set => id = value; }
         public virtual Actor Actor { get => actor; set => actor = value; }
         public virtual Film Film { get => film; set => film = value; }
         public virtual Character Character { get => character; set => character = value; }
@@ -50,7 +49,8 @@ namespace DAL
         #region methods
         public override string ToString()
         {
-            return "(ToString)FilmActorCharacter:" + FilmID + ", " + ActorID + ", " + CharacterID +
+            return "(ToString)FilmActorCharacter:" + Id + 
+                //FilmID + ", " + ActorID + ", " + CharacterID +
             "\tfilm=" + film +
             "\tactor=" + actor +
             "\tcharacter=" + character;

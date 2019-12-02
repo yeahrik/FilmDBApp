@@ -13,13 +13,13 @@ namespace DAL_Business
         public DALManager()
         {
             dbContxt = new FilmDbContext();
-            if (!dbContxt.Database.Exists())  // Vérifier si la DB existe
-            {
-                Console.WriteLine("Création et remplissage de la DB... !");
-                dbContxt.Database.Create();
-                FilmParser dec = new FilmParser(dbContxt);
-                dec.SaveFilmsToDB(1000);
-            }
+            //if (!dbContxt.Database.Exists())  // Vérifier si la DB existe
+            //{
+            //    Console.WriteLine("Création et remplissage de la DB... !");
+            //    dbContxt.Database.Create();
+            //    FilmParser dec = new FilmParser(dbContxt);
+            //    dec.SaveFilmsToDB(1000);
+            //}
         }
 
         #region EtapeDAL
@@ -33,7 +33,7 @@ namespace DAL_Business
             return dbContxt.FilmTypes;
         }
 
-        public IQueryable<Film> GetMovies()
+        public IQueryable<Film> GetFilms()
         {
             return dbContxt.Films;
         }
@@ -42,12 +42,21 @@ namespace DAL_Business
         {
             return dbContxt.Comments;
         }
-
-        public void AddComment(String content, int rate, string avatar, DateTime date, int actorID)
+        public IQueryable<FilmType> GetFilmTypes()
         {
-            dbContxt.Comments.Add(new Comment(content, rate, avatar, date, actorID));
-            dbContxt.SaveChanges();
+            return dbContxt.FilmTypes;
         }
+        public IQueryable<CharacterActor> GetCharacterActors()
+        {
+            return dbContxt.CharacterActors;
+        }
+
+
+        //public void AddComment(String content, int rate, string avatar, DateTime date, int actorID)
+        //{
+        //    dbContxt.Comments.Add(new Comment(content, rate, avatar, date, actorID));
+        //    dbContxt.SaveChanges();
+        //}
         #endregion
     }
 }

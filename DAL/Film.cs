@@ -17,6 +17,8 @@ namespace DAL
         // foreign keys
         private ICollection<Actor> actors;
         private ICollection<FilmType> filmtypes;
+        private ICollection<CharacterActor> characterActors;
+
 
         #endregion
 
@@ -31,6 +33,8 @@ namespace DAL
             // many to many with Actors
             this.Actors = new HashSet<Actor>();
             this.Filmtypes = new HashSet<FilmType>();
+            this.CharacterActors = new HashSet<CharacterActor>();
+
 
         }
         public Film(int filmID, string title, DateTime? releaseDate, decimal voteAverage, int runtime, string posterpath)
@@ -45,6 +49,7 @@ namespace DAL
             // many to many with Actors
             this.Actors = new HashSet<Actor>();
             this.Filmtypes = new HashSet<FilmType>();
+            this.CharacterActors = new HashSet<CharacterActor>();
 
         }
         #endregion
@@ -59,6 +64,7 @@ namespace DAL
         public string Posterpath { get => posterpath; set => posterpath = value; }
         public virtual ICollection<Actor> Actors        { get { return actors = actors ?? new HashSet<Actor>(); } set => actors = value; }
         public virtual ICollection<FilmType> Filmtypes  { get { return filmtypes = filmtypes ?? new HashSet<FilmType>(); } set => filmtypes = value; }
+        public virtual ICollection<CharacterActor> CharacterActors { get { return characterActors = characterActors ?? new HashSet<CharacterActor>(); } set => characterActors = value; }
 
         #endregion
 
