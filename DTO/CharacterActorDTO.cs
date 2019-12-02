@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace DTO
 {
-    public class CharacterActor
+    [DataContract(Name = "CharacterActorDTO")]
+    public class CharacterActorDTO
     {
 
         #region variables
@@ -16,13 +18,13 @@ namespace DTO
         private int id;
 
 
-        private Character character;
+        private CharacterDTO character;
         private Actor actor;
-        private Film film;
+        private FilmDTO film;
         #endregion
 
         #region constructors
-        public CharacterActor()
+        public CharacterActorDTO()
         {
         }
         #endregion
@@ -39,11 +41,11 @@ namespace DTO
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //[Key, Column("CharacterActorID", Order = 2), ForeignKey("Characters")]
         //public int CharacterID { get => characterID; set => characterID = value; }
-
+        [DataMember(Name = "CharacterActorID")]
         public int Id { get => id; set => id = value; }
         public virtual Actor Actor { get => actor; set => actor = value; }
-        public virtual Film Film { get => film; set => film = value; }
-        public virtual Character Character { get => character; set => character = value; }
+        public virtual FilmDTO Film { get => film; set => film = value; }
+        public virtual CharacterDTO Character { get => character; set => character = value; }
         #endregion
 
         #region methods

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace DTO
 {
-    public class Actor
+    [DataContract(Name = "ActorDTO")]
+    public class ActorDTO
     {
 
         #region variables
@@ -15,32 +17,32 @@ namespace DTO
         private string surname;
 
         // foreign keys
-        private ICollection<Film> films;
-        private ICollection<CharacterActor> characterActors;
+        private ICollection<FilmDTO> films;
+        private ICollection<CharacterActorDTO> characterActors;
         #endregion
 
         #region constructors
-        public Actor()
+        public ActorDTO()
         {
             // many to many with Films
-            this.Films = new HashSet<Film>();
+            this.Films = new HashSet<FilmDTO>();
             // one to many with CharAct
-            this.CharacterActors = new HashSet<CharacterActor>();
+            this.CharacterActors = new HashSet<CharacterActorDTO>();
 
         }
-        public Actor(int actorID, string name, string surname)
+        public ActorDTO(int actorID, string name, string surname)
         {
             ActorID = actorID;
             Name = name;
             Surname = surname;
 
             // many to many with Films
-            this.Films = new HashSet<Film>();
+            this.Films = new HashSet<FilmDTO>();
             // one to many with CharAct
-            this.CharacterActors = new HashSet<CharacterActor>();
+            this.CharacterActors = new HashSet<CharacterActorDTO>();
 
         }
-        public Actor(string text) // Constructeur d’objet Actor
+        public ActorDTO(string text) // Constructeur d’objet Actor
         {
             string[] acteurdetail, characterdetail;
             string tmp;
@@ -58,11 +60,14 @@ namespace DTO
 
         #region properties
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DataMember(Name = "ActorID")]
         public int ActorID { get => actorID; set => actorID = value; }
+        [DataMember(Name = "ActorName")]
         public string Name { get => name; set => name = value; }
+        [DataMember(Name = "ActorSurname")]
         public string Surname { get => surname; set => surname = value; }
-        public virtual ICollection<Film> Films { get { return films = films ?? new HashSet<Film>(); } set => films = value; }
-        public virtual ICollection<CharacterActor> CharacterActors { get { return characterActors = characterActors ?? new HashSet<CharacterActor>(); } set => characterActors = value; }
+        public virtual ICollection<FilmDTO> Films { get { return films = films ?? new HashSet<FilmDTO>(); } set => films = value; }
+        public virtual ICollection<CharacterActorDTO> CharacterActors { get { return characterActors = characterActors ?? new HashSet<CharacterActorDTO>(); } set => characterActors = value; }
 
         #endregion
 

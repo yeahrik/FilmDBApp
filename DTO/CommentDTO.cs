@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace DTO
 {
-    public class Comment
+    [DataContract(Name = "CommentDTO")]
+    public class CommentDTO
     {
         #region variables
         private int commentID;
@@ -17,10 +19,10 @@ namespace DTO
         #endregion
 
         #region constructors
-        public Comment()
+        public CommentDTO()
         {
         }
-        public Comment(int commentID, string content, int rate, string avatar, DateTime? dateComment, int idActor)
+        public CommentDTO(int commentID, string content, int rate, string avatar, DateTime? dateComment, int idActor)
         {
             CommentID = commentID;
             Content = content;
@@ -29,7 +31,7 @@ namespace DTO
             DateComment = dateComment;
             IdActor = idActor;
         }
-        public Comment(string content, int rate, string avatar, DateTime? dateComment, int idActor)
+        public CommentDTO(string content, int rate, string avatar, DateTime? dateComment, int idActor)
         {
             Content = content;
             Rate = rate;
@@ -42,11 +44,17 @@ namespace DTO
 
         #region properties
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DataMember(Name = "CommentID")]
         public int CommentID { get => commentID; set => commentID = value; }
+        [DataMember(Name = "CommentContent")]
         public string Content { get => content; set => content = value; }
+        [DataMember(Name = "CommentRate")]
         public int Rate { get => rate; set => rate = value; }
+        [DataMember(Name = "CommentAvatar")]
         public string Avatar { get => avatar; set => avatar = value; }
+        [DataMember(Name = "CommentDateComment")]
         public DateTime? DateComment { get => dateComment; set => dateComment = value; }
+        [DataMember(Name = "CommentIdActor")]
         public int IdActor { get => idActor; set => idActor = value; }
         #endregion
 
