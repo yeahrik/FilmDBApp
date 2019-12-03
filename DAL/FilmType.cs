@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DTO
+namespace DAL
 {
     public class FilmType
     {
@@ -16,6 +16,18 @@ namespace DTO
         public FilmType()
         {
 
+        }
+
+        public FilmType(string text) // Constructeur de FilmType (type de film)
+        {
+            string[] genredetail;
+            Char[] delimiterChars = { '\u2024' };
+            genredetail = text.Split(delimiterChars);
+            FilmTypeID = Int32.Parse(genredetail[0]);
+            Name = genredetail[1];
+
+            // many to many with Films
+            this.Films = new HashSet<Film>();
         }
 
         [Key]

@@ -1,33 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using System.Text;
 
-namespace DTO
-{        
-    [DataContract(Name = "FilmTypeDTO")]
+namespace DAL
+{
     public class FilmTypeDTO
     {
         private int filmTypeid;
         private string name;
-        // foreign keys
-        private ICollection<FilmDTO> films;
 
-        #region constructors
+
         public FilmTypeDTO()
         {
 
         }
-        #endregion
+
+        public FilmTypeDTO(string text) // Constructeur de FilmType (type de film)
+        {
+            string[] genredetail;
+            Char[] delimiterChars = { '\u2024' };
+            genredetail = text.Split(delimiterChars);
+            FilmTypeID = Int32.Parse(genredetail[0]);
+            Name = genredetail[1];
+
+        }
 
         [Key]
-        [DataMember(Name = "FilmTypeID")]
         public int FilmTypeID { get => filmTypeid; set => filmTypeid = value; }
-        [DataMember(Name = "FilmTypeName")]
         public string Name { get => name; set => name = value; }
 
-        public virtual ICollection<FilmDTO> Films { get { return films = films ?? new HashSet<FilmDTO>(); } set => films = value; }
-
+        #region methods
+        public override string ToString()
+        {
+            return "(ToString)FilmTypeDTO:" +
+                "\tFilmTypeDTOId=" + FilmTypeID +
+                "\tName=" + Name; // +
+                //"\tReleaseDate=" + ReleaseDate +
+                //"\tVoteAverage=" + VoteAverage +
+                //"\tRuntime=" + Runtime +
+                //"\tPosterpath=" + Posterpath;
+        }
+        public void Affiche()
+        {
+            Console.WriteLine(ToString());
+        }
+        #endregion
     }
 }

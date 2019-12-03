@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO;
+using DAL;
 
 namespace DAL_Business
 {
@@ -22,7 +22,7 @@ namespace DAL_Business
             //}
         }
 
-        #region EtapeDAL
+        #region DAL, BLL
         public IQueryable<Actor> GetActors()
         {
             return dbContxt.Actors;

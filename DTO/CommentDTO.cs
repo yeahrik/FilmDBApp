@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 using System.Text;
 
-namespace DTO
+namespace DAL
 {
-    [DataContract(Name = "CommentDTO")]
     public class CommentDTO
     {
         #region variables
@@ -44,17 +42,11 @@ namespace DTO
 
         #region properties
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [DataMember(Name = "CommentID")]
         public int CommentID { get => commentID; set => commentID = value; }
-        [DataMember(Name = "CommentContent")]
         public string Content { get => content; set => content = value; }
-        [DataMember(Name = "CommentRate")]
         public int Rate { get => rate; set => rate = value; }
-        [DataMember(Name = "CommentAvatar")]
         public string Avatar { get => avatar; set => avatar = value; }
-        [DataMember(Name = "CommentDateComment")]
         public DateTime? DateComment { get => dateComment; set => dateComment = value; }
-        [DataMember(Name = "CommentIdActor")]
         public int IdActor { get => idActor; set => idActor = value; }
         #endregion
 
