@@ -55,70 +55,7 @@ namespace BLL
             return listFilmDTO;
         }
 
-        //public List<CharacterDTO> GetListCharacterByIdActorAndIdFilm(int actorID, int filmID)
-        //{
-
-        //    IQueryable<Character> characters = DALManager.GetCharacters();
-
-        //    var query = characters.Where(c => c.actorID == idMovie && );///////
-
-
-        //    Movie movie;
-        //    try
-        //    {
-        //        movie = query.Single<Movie>();
-        //    }
-        //    catch (InvalidOperationException e)
-        //    {
-        //        return new List<MovieTypeDTO>();
-        //    }
-
-
-
-        //    List<Genre> listgenre = movie.Genres;
-
-        //    List<MovieTypeDTO> listgenreDTO = new List<MovieTypeDTO>();
-
-        //    foreach (Genre genre in listgenre)
-        //    {
-        //        listgenreDTO.Add(new MovieTypeDTO(genre.ID, genre.Name));
-        //    }
-
-        //    return listgenreDTO;
-        //}
-
-
-        //public List<MovieTypeDTO> GetMovieTypeListByMovieId(int idMovie)
-        //{
-
-        //    IQueryable<Movie> movies = _dALManager.GetMovies();
-
-        //    var query = movies.Where(m => m.ID == idMovie);
-
-
-        //    Movie movie;
-        //    try
-        //    {
-        //        movie = query.Single<Movie>();
-        //    }
-        //    catch (InvalidOperationException e)
-        //    {
-        //        return new List<MovieTypeDTO>();
-        //    }
-
-
-
-        //    List<Genre> listgenre = movie.Genres;
-
-        //    List<MovieTypeDTO> listgenreDTO = new List<MovieTypeDTO>();
-
-        //    foreach (Genre genre in listgenre)
-        //    {
-        //        listgenreDTO.Add(new MovieTypeDTO(genre.ID, genre.Name));
-        //    }
-
-        //    return listgenreDTO;
-        //}
+  
 
         public List<FilmDTO> FindListFilmByPartialActorName(String actorName)
         {
@@ -208,6 +145,40 @@ namespace BLL
             DALManager.AddComment(comment.Content, comment.Rate, comment.Avatar, DateTime.Now, comment.IdActor);
         }
         #endregion
+
+
+        // finir
+        //public List<CharacterDTO> GetListCharacterByIdActorAndIdFilm(int ActorIDch)
+        //{
+        //    IQueryable<Actor> actors = DALManager.GetActors();
+
+        //    var query = actors.Where(a => a.ActorID == ActorIDch);
+
+
+        //    Actor actor;
+        //    // lance exception si plusieurs résultats 
+        //    try
+        //    {
+        //        actor = query.Single<Actor>();
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        return new List<FilmDTO>();
+        //    }
+
+
+
+        //    ICollection<Film> listFilm = actor.Films;
+        //    List<FilmDTO> listFilmDTO = new List<FilmDTO>();
+        //    // Construire list FilmDTO
+        //    foreach (Film film in listFilm)
+        //    {
+        //        listFilmDTO.Add(new FilmDTO(film.FilmID, film.Title, film.ReleaseDate, film.VoteAverage, film.Runtime, film.Posterpath));
+
+        //    }
+
+        //    return listFilmDTO;
+        //}
 
 
     }
