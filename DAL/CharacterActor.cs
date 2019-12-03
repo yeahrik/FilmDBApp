@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DAL
+namespace DTO
 {
     public class CharacterActor
     {
@@ -25,6 +25,15 @@ namespace DAL
         public CharacterActor()
         {
         }
+
+        public CharacterActor(int id, Actor actor, Film film, Character character)
+        {
+            Id = id;
+            Actor = actor;
+            Film = film;
+            Character = character;
+        }
+
         #endregion
 
         #region properties        

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DAL
+namespace DTO
 {
     public class Comment
     {
@@ -27,7 +27,7 @@ namespace DAL
             Rate = rate;
             Avatar = avatar;
             DateComment = dateComment;
-            IdActor = idActor;
+            ActorID = idActor;
         }
         public Comment(string content, int rate, string avatar, DateTime? dateComment, int idActor)
         {
@@ -35,7 +35,7 @@ namespace DAL
             Rate = rate;
             Avatar = avatar;
             DateComment = dateComment;
-            IdActor = idActor;
+            ActorID = idActor;
         }
 
         #endregion
@@ -47,7 +47,7 @@ namespace DAL
         public int Rate { get => rate; set => rate = value; }
         public string Avatar { get => avatar; set => avatar = value; }
         public DateTime? DateComment { get => dateComment; set => dateComment = value; }
-        public int IdActor { get => idActor; set => idActor = value; }
+        public int ActorID { get => idActor; set => idActor = value; }
         #endregion
 
         #region methods
@@ -59,7 +59,7 @@ namespace DAL
                 "\tRate=" + Rate +
                 "\tAvatar=" + Avatar +
                 "\tDateComment=" + DateComment +
-                "\tIdActor=" + IdActor;
+                "\tIdActor=" + ActorID;
         }
         public void Affiche()
         {

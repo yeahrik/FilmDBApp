@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DAL
+namespace DTO
 {
-    public class CharacterActor
+    public class CharacterActorDTO
     {
 
         #region variables
@@ -18,8 +18,13 @@ namespace DAL
         #endregion
 
         #region constructors
-        public CharacterActor()
+        public CharacterActorDTO()
         {
+        }
+
+        public CharacterActorDTO(int id)
+        {
+            Id = id;
         }
         #endregion
 
@@ -43,7 +48,7 @@ namespace DAL
         #region methods
         public override string ToString()
         {
-            return "(ToString)FilmActorCharacter:" + Id; // + 
+            return "(ToString)FilmActorCharacterDTO:" + Id; // + 
                 //FilmID + ", " + ActorID + ", " + CharacterID +
             //"\tfilm=" + film +
             //"\tactor=" + actor +

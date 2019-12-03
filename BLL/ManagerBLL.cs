@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL_Business;
-using DAL;
+using DTO;
 
 namespace BLL
 {
@@ -22,8 +22,6 @@ namespace BLL
         }
         #endregion
 
-
-
         #region Fonctions d'encapsulation BLL
         public List<FilmDTO> GetListFilmsByIdActor(int ActorIDch)
         {
@@ -33,7 +31,7 @@ namespace BLL
 
 
             Actor actor;
-            // lance exception si plusieurs résultats, renvoie liste vide
+            // lance exception si plusieurs résultats 
             try
             {
                 actor = query.Single<Actor>();
@@ -44,12 +42,10 @@ namespace BLL
             }
 
 
-            // Récupérer films de l'acteur
+
             ICollection<Film> listFilm = actor.Films;
-
             List<FilmDTO> listFilmDTO = new List<FilmDTO>();
-
-            // Remplir liste FilmDTO
+            // Construire list FilmDTO
             foreach (Film film in listFilm)
             {
                 listFilmDTO.Add(new FilmDTO(film.FilmID, film.Title, film.ReleaseDate, film.VoteAverage, film.Runtime, film.Posterpath));
@@ -58,6 +54,39 @@ namespace BLL
 
             return listFilmDTO;
         }
+
+        //public List<CharacterDTO> GetListCharacterByIdActorAndIdFilm(int actorID, int filmID)
+        //{
+
+        //    IQueryable<Character> characters = DALManager.GetCharacters();
+
+        //    var query = characters.Where(c => c.actorID == idMovie && );///////
+
+
+        //    Movie movie;
+        //    try
+        //    {
+        //        movie = query.Single<Movie>();
+        //    }
+        //    catch (InvalidOperationException e)
+        //    {
+        //        return new List<MovieTypeDTO>();
+        //    }
+
+
+
+        //    List<Genre> listgenre = movie.Genres;
+
+        //    List<MovieTypeDTO> listgenreDTO = new List<MovieTypeDTO>();
+
+        //    foreach (Genre genre in listgenre)
+        //    {
+        //        listgenreDTO.Add(new MovieTypeDTO(genre.ID, genre.Name));
+        //    }
+
+        //    return listgenreDTO;
+        //}
+
 
         //public List<MovieTypeDTO> GetMovieTypeListByMovieId(int idMovie)
         //{
@@ -116,61 +145,69 @@ namespace BLL
             return ListFilmsDTO;
         }
 
-        //public List<LightActorDTO> GetFavoriteActors()
-        //{
-        //    IQueryable<Actor> actors = _dALManager.GetActors();
 
-        //    IQueryable<Actor> query = actors.Where<Actor>(a => a.Movies.Count > 1);
+        
 
-        //    List<LightActorDTO> listActor = new List<LightActorDTO>();
+        public List<LightFilmDTO> GetFavoriteFilms()
+        {
+            IQueryable<Film> films = DALManager.GetFilms();
 
-        //    foreach (Actor actor in query)
-        //    {
-        //        listActor.Add(new LightActorDTO(actor.Name, actor.Movies.Count));
-        //    }
+            //IQueryable<Film> query = films.Where<Actor>(a => a.Movies.Count > 1);
 
-        //    return listActor;
-        //}
-
-        //public MovieFullDTO GetMovieFullDetailsByMovieId(int idMovie)
-        //{
-
-        //    //import dal
-        //    IQueryable<Movie> movies = _dALManager.GetMovies();
-
-        //    //Recup movie
-
-        //    IQueryable<Movie> queryMovie = movies.Where<Movie>(m => m.ID == idMovie);
-
-        //    Movie movie = queryMovie.First<Movie>();
-
-        //    //Recup Acteur
-
-        //    List<ActorDTO> actorsInMovie = new List<ActorDTO>();
-
-        //    foreach (Actor actor in movie.Actors)
-        //    {
-        //        actorsInMovie.Add(new ActorDTO(actor.ID, actor.Name));
-        //    }
-
-        //    //Recup Genre
-
-        //    List<MovieTypeDTO> genresInMovie = new List<MovieTypeDTO>();
-
-        //    foreach (Genre genre in movie.Genres)
-        //    {
-        //        genresInMovie.Add(new MovieTypeDTO(genre.ID, genre.Name));
-        //    }
+            // Chercher 10 films avec VoteAverage le plus grand
+            IQueryable<Film> query = films.OrderByDescending(i => i.VoteAverage).Take(10);
 
 
-        //    return new MovieFullDTO(movie.ID, movie.Title, movie.Runtime, movie.PosterPath, genresInMovie, actorsInMovie);
-        //}
+            List<LightFilmDTO> ListFilmDTO = new List<LightFilmDTO>();
 
-        //public void InsertCommentOnMovieId(CommentDTO comment)
-        //{
-        //    _dALManager.AddComment(comment.Content, comment.Rate, comment.IDFilm, comment.Avatar, DateTime.Now);
-        //}
-#endregion
+            foreach (Film f in query)
+            {
+                
+                ListFilmDTO.Add(new LightFilmDTO(f.Title, f.VoteAverage));
+
+            }
+
+            return ListFilmDTO;
+        }
+
+
+        public FullActorDTO GetFullActorDetailsByIdActor(int actorID)
+        {
+
+            
+            IQueryable<Actor> movies = DALManager.GetActors();
+
+            // Récupérer acteur de cet id
+            IQueryable<Actor> query_actor = movies.Where<Actor>(a => a.ActorID == actorID);
+            Actor actor = query_actor.First<Actor>();
+
+            // Récupérer films qu'il a joué
+            List<FilmDTO> ListFilmsDTO = new List<FilmDTO>();
+
+            foreach (Film film in actor.Films)
+            {
+                ListFilmsDTO.Add(new FilmDTO(film.FilmID, film.Title, film.ReleaseDate, film.VoteAverage, film.Runtime, film.Posterpath));
+            }
+
+            // Récupérer characteractors
+            List<CharacterActorDTO> ListCharacterActorDTO = new List<CharacterActorDTO>();
+
+            foreach (CharacterActor ca in actor.CharacterActors)
+            {
+                ListCharacterActorDTO.Add(new CharacterActorDTO(ca.Id));
+            }
+
+
+            return new FullActorDTO(actor.ActorID, actor.Name, actor.Surname, ListFilmsDTO, ListCharacterActorDTO);
+        }
+
+       
+
+        public void InsertCommentOnMovieId(CommentDTO comment)
+        {
+            DALManager.AddComment(comment.Content, comment.Rate, comment.Avatar, DateTime.Now, comment.IdActor);
+        }
+        #endregion
 
 
     }

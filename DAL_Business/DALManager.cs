@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using DTO;
 
 namespace DAL_Business
 {
@@ -50,13 +50,17 @@ namespace DAL_Business
         {
             return dbContxt.CharacterActors;
         }
+        public IQueryable<Character> GetCharacters()
+        {
+            return dbContxt.Characters;
+        }
 
 
-        //public void AddComment(String content, int rate, string avatar, DateTime date, int actorID)
-        //{
-        //    dbContxt.Comments.Add(new Comment(content, rate, avatar, date, actorID));
-        //    dbContxt.SaveChanges();
-        //}
+        public void AddComment(String content, int rate, string avatar, DateTime date, int actorID)
+        {
+            dbContxt.Comments.Add(new Comment(content, rate, avatar, date, actorID));
+            dbContxt.SaveChanges();
+        }
         #endregion
     }
 }
